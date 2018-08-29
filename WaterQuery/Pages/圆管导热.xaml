@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="WaterQuery.Pages.圆管导热"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WaterQuery.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+       
+    </Page.Resources>
+
+    <ScrollViewer>
+
+ 
+        <StackPanel VerticalAlignment="Center" Padding="0 20 0 100">
+
+            <Image Width="468" Height="375" Source="ms-appx:///imgs/圆管导热.jpg" VerticalAlignment="Top"></Image>
+
+
+
+            <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="100 10"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <StackPanel>
+                        <TextBox x:Name="T1" Header="T1-温度" Width="100"></TextBox>
+                        <TextBox x:Name="T2" Header="T2-温度" Width="100"></TextBox>
+                    </StackPanel>
+                    <TextBlock Text="或" Margin="50 0" VerticalAlignment="Center"></TextBlock>
+                    <TextBox x:Name="deltaT"  Header="△T=T1-T2" Width="100" PlaceholderText="和TI、T2选填一个"></TextBox>
+                </StackPanel>
+
+
+
+
+                <TextBox x:Name="lamd" Header="λ-导热系数(热导率)"  PlaceholderText="[W/(m·K)]" Width="300" HorizontalAlignment="Left"></TextBox>
+                <TextBox x:Name="d2" Header="d2 外径" PlaceholderText="[m]" Width="300" HorizontalAlignment="Left"></TextBox>
+                <TextBox x:Name="d1" Header="d1 内径" PlaceholderText="[m]" Width="300" HorizontalAlignment="Left"></TextBox>
+                <TextBox x:Name="L" Header="L-管道长度  " PlaceholderText="[m]" Width="300" HorizontalAlignment="Left"></TextBox>
+                <Button  Content="计算" HorizontalAlignment="Right" Background="{StaticResource SystemAccentColorDark1}" Foreground="White" Click="Button_Click" Margin="0 20 0 0" BorderBrush="{ThemeResource SystemAccentColor}" BorderThickness="1">
+
+                </Button>
+                <StackPanel>
+
+                    <TextBlock Text="计算结果" Margin="0 20"></TextBlock>
+
+                    <TextBox x:Name="fai" Header="Φ-热通量(导热功率)    [W]" PlaceholderText="[W]" HorizontalAlignment="Left" Width="300"></TextBox>
+
+                    <TextBox x:Name="R" Header="导热热阻    [K/W]" PlaceholderText="[K/W]" HorizontalAlignment="Left" Width="300"></TextBox>
+
+
+                </StackPanel>
+
+            </StackPanel>
+
+          
+        </StackPanel>
+
+    </ScrollViewer>
+</Page>

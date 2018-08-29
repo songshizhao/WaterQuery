@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="WaterQuery.Pages.体感温度"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WaterQuery.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+
+
+        <StackPanel VerticalAlignment="Center" Width="643">
+            <Image Width="643" Height="360" Source="ms-appx:///imgs/体感温度.png" VerticalAlignment="Top"></Image>
+
+
+
+            <StackPanel VerticalAlignment="Bottom" Padding="100 10" Width="600" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+
+
+                <TextBox x:Name="temp" Header="摄氏温度" PlaceholderText="[℃]" Width="300" HorizontalAlignment="Left"></TextBox>
+
+
+                <TextBox x:Name="wet" Header="相对湿度 0~1"  PlaceholderText="0~1" Width="300" HorizontalAlignment="Left"></TextBox>
+
+                <TextBox x:Name="wind" Header="风速"  PlaceholderText="m/s" Width="300" HorizontalAlignment="Left"></TextBox>
+
+
+                <Button Content="计算" Click="Button_Click" Margin="0 20 0 0" BorderBrush="{ThemeResource SystemAccentColor}" BorderThickness="1">
+
+                </Button>
+                <StackPanel>
+
+                    <TextBlock Text="计算结果" Margin="0 20"></TextBlock>
+
+                    <TextBox x:Name="at" Header="体感温度 [℃]" PlaceholderText="℃" HorizontalAlignment="Left" Width="300"></TextBox>
+
+              
+
+                </StackPanel>
+
+            </StackPanel>
+        </StackPanel>
+
+    </ScrollViewer>
+</Page>

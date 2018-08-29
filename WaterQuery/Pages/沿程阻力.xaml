@@ -1,0 +1,57 @@
+﻿<Page
+    x:Class="WaterQuery.Pages.沿程阻力"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WaterQuery.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+        <StackPanel>
+
+            <TextBox x:Name="ccd" PlaceholderText="[mm]" TextChanged="TextChanged">
+                <TextBox.Header>
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="绝对粗糙度△ mm" VerticalAlignment="Center"></TextBlock>
+                        <Button  HorizontalAlignment="Left" Style="{StaticResource TextBlockButtonStyle}">
+                            <Button.Content>
+                                <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE9CE;" />
+                            </Button.Content>
+                            <Button.Flyout>
+                                <Flyout>
+                                    <Image Source="ms-appx:///imgs/粗糙度.png"></Image>
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+                    </StackPanel>
+                    
+
+                </TextBox.Header>
+            </TextBox>
+
+            <TextBox x:Name="直径" PlaceholderText="[m]" TextChanged="TextChanged">
+                <TextBox.Header>
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="直径 m" VerticalAlignment="Center"></TextBlock>
+
+                    </StackPanel>
+
+
+                </TextBox.Header>
+            </TextBox>
+
+
+            <TextBox x:Name="ccdperd" Header="△/d"></TextBox>
+
+            <TextBlock Text="根据△/d和雷诺数Re查L.M.Moody（穆迪）曲线图"></TextBlock>
+
+            <Image Source="ms-appx:///imgs/穆迪.jpg"></Image>
+            <TextBlock Text="附录：尼古拉斯曲线（实验数据）"></TextBlock>
+            <Image Source="ms-appx:///imgs/曲线.png"></Image>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

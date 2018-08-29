@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetProperty">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="P" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="T" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPropertyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPropertyResult" type="tns:WaterPropertys" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WaterPropertys">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="P" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="T" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="TL" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Density" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="H" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="HL" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="HG" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="S" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="SL" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="SG" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="V" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cp" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cv" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="E" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="SSP" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="KS" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Eta" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="U" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="RAMD" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PRN" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="EPS" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="N" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Xe" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="WaterPropertys" nillable="true" type="tns:WaterPropertys" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetPropertySoapIn">
+    <wsdl:part name="parameters" element="tns:GetProperty" />
+  </wsdl:message>
+  <wsdl:message name="GetPropertySoapOut">
+    <wsdl:part name="parameters" element="tns:GetPropertyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPropertyHttpGetIn">
+    <wsdl:part name="P" type="s:string" />
+    <wsdl:part name="T" type="s:string" />
+    <wsdl:part name="Token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPropertyHttpGetOut">
+    <wsdl:part name="Body" element="tns:WaterPropertys" />
+  </wsdl:message>
+  <wsdl:message name="GetPropertyHttpPostIn">
+    <wsdl:part name="P" type="s:string" />
+    <wsdl:part name="T" type="s:string" />
+    <wsdl:part name="Token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPropertyHttpPostOut">
+    <wsdl:part name="Body" element="tns:WaterPropertys" />
+  </wsdl:message>
+  <wsdl:portType name="MyWaterServiceSoap">
+    <wsdl:operation name="GetProperty">
+      <wsdl:input message="tns:GetPropertySoapIn" />
+      <wsdl:output message="tns:GetPropertySoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MyWaterServiceHttpGet">
+    <wsdl:operation name="GetProperty">
+      <wsdl:input message="tns:GetPropertyHttpGetIn" />
+      <wsdl:output message="tns:GetPropertyHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MyWaterServiceHttpPost">
+    <wsdl:operation name="GetProperty">
+      <wsdl:input message="tns:GetPropertyHttpPostIn" />
+      <wsdl:output message="tns:GetPropertyHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MyWaterServiceSoap" type="tns:MyWaterServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProperty">
+      <soap:operation soapAction="http://tempuri.org/GetProperty" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MyWaterServiceSoap12" type="tns:MyWaterServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProperty">
+      <soap12:operation soapAction="http://tempuri.org/GetProperty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MyWaterServiceHttpGet" type="tns:MyWaterServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetProperty">
+      <http:operation location="/GetProperty" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MyWaterServiceHttpPost" type="tns:MyWaterServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetProperty">
+      <http:operation location="/GetProperty" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MyWaterService">
+    <wsdl:port name="MyWaterServiceSoap" binding="tns:MyWaterServiceSoap">
+      <soap:address location="https://www.songshizhao.com/apps/Water/mywaterservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MyWaterServiceSoap12" binding="tns:MyWaterServiceSoap12">
+      <soap12:address location="https://www.songshizhao.com/apps/Water/mywaterservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MyWaterServiceHttpGet" binding="tns:MyWaterServiceHttpGet">
+      <http:address location="https://www.songshizhao.com/apps/Water/mywaterservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MyWaterServiceHttpPost" binding="tns:MyWaterServiceHttpPost">
+      <http:address location="https://www.songshizhao.com/apps/Water/mywaterservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

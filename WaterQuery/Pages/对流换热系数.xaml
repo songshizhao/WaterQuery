@@ -1,0 +1,336 @@
+﻿<Page
+    x:Class="WaterQuery.Pages.对流换热系数"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WaterQuery.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" FontFamily="Cambria Math"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+
+
+
+
+        <StackPanel HorizontalAlignment="Center"  Padding="50" >
+            <TextBlock Text="管内强迫流动对流换热系数" FontSize="30"></TextBlock>
+            <TextBlock FontFamily="Cambria Math" Text="依次计算  Re雷诺数/Pr数->Nu努塞尔数->h对流换热系数" FontSize="15"></TextBlock>
+            <TextBox Header="de 直径或等效直径(经验公式的特征长度)" x:Name="tb_de" PlaceholderText="[m]"></TextBox>
+            <TextBox Header="流速" x:Name="tb_v" PlaceholderText="[m/s]"></TextBox>
+            <TextBox  x:Name="tb_niandu" PlaceholderText="运动粘度[m^2/s]">
+
+
+                <TextBox.Header>
+
+                    <Button Style="{StaticResource TextBlockButtonStyle}" Content="粘度">
+
+
+                        <Button.Flyout>
+
+
+                            <Flyout>
+
+
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="IAPWS.IF97 仅限于水"></TextBlock>
+                                    <TextBox Header="参考压力" x:Name="tb_P"  PlaceholderText="Mpa" ></TextBox>
+                                    <TextBox Header="参考温度" x:Name="tb_T" PlaceholderText="℃" ></TextBox>
+
+
+                                    <Button Content="水的粘度" Click="PT2Niandu"></Button>
+
+                                </StackPanel>
+
+
+                            </Flyout>
+
+
+                        </Button.Flyout>
+
+
+                    </Button>
+
+
+                </TextBox.Header>
+
+
+            </TextBox>
+
+            <TextBox  x:Name="tb_re" PlaceholderText="Re">
+
+
+                <TextBox.Header>
+
+
+                    <Button Style="{StaticResource TextBlockButtonStyle}" Content="雷诺数">
+
+
+                        <Button.Flyout>
+
+
+                            <Flyout>
+
+
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock FontFamily="Cambria Math" Text="Re=v*de/ν"></TextBlock>
+                                    <StackPanel Orientation="Horizontal">
+
+
+                                        <TextBlock Text="Re="></TextBlock>
+                                        <TextBlock Text="{x:Bind tb_v.Text,Mode=OneWay}"></TextBlock>
+                                        <TextBlock Text="*"></TextBlock>
+                                        <TextBlock Text="{x:Bind tb_de.Text,Mode=OneWay}"></TextBlock>
+                                        <TextBlock Text="/"></TextBlock>
+                                        <TextBlock Text="{x:Bind tb_niandu.Text,Mode=OneWay}"></TextBlock>
+                                        <Button Click="CalRe" Content="计算"></Button>
+
+                                    </StackPanel>
+
+
+                                </StackPanel>
+
+
+                            </Flyout>
+
+
+                        </Button.Flyout>
+
+
+                    </Button>
+
+                </TextBox.Header>
+            </TextBox>
+
+            <TextBox  x:Name="tb_Pr" PlaceholderText="Pr">
+
+
+                <TextBox.Header>
+
+
+                    <Button Style="{StaticResource TextBlockButtonStyle}" Content="普朗特数">
+
+
+                        <Button.Flyout>
+
+
+                            <Flyout>
+
+
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="IAPWS.IF97 仅限于水"></TextBlock>
+                                    <TextBox Header="参考压力" x:Name="tb_P2"  PlaceholderText="Mpa" Text="{x:Bind tb_P.Text,Mode=OneWay}"></TextBox>
+                                    <TextBox Header="参考温度" x:Name="tb_T2" PlaceholderText="℃" Text="{x:Bind tb_T.Text,Mode=OneWay}"></TextBox>
+
+
+                                    <Button Content="水的Pr" Click="PT2Pr"></Button>
+
+                                </StackPanel>
+
+
+                            </Flyout>
+
+
+                        </Button.Flyout>
+
+
+                    </Button>
+
+                </TextBox.Header>
+            </TextBox>
+
+
+            <StackPanel Margin="0 20 0 0" BorderBrush="Gray" CornerRadius="10" BorderThickness="1" Padding="20">
+
+
+                <StackPanel Orientation="Horizontal">
+
+                    <StackPanel Width="200">
+                        <Button Content="使用 Dittus-Boelter公式" Style="{StaticResource TextBlockButtonStyle}">
+                            <Button.Flyout>
+                                <Flyout>
+                                    <Image  Source="ms-appx:///img2/DB.png"></Image>
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+
+
+                        <TextBox Width="100" x:Name="tb_n" Text="0.4">
+
+
+                            <TextBox.Header>
+
+                                <TextBlock Text="n" TextDecorations="Underline">
+       
+       
+                                    <ToolTipService.ToolTip>
+           
+           
+           
+                                        <StackPanel>
+                           
+               
+                                            <TextBlock Text="被加热n=0.4"></TextBlock>
+              
+                                            <TextBlock Text="被冷却n=0.3"></TextBlock>
+           
+                                        </StackPanel>
+       
+                                    </ToolTipService.ToolTip>
+   
+                                </TextBlock>
+
+                            </TextBox.Header>
+                        </TextBox>
+                        <Button Content=" 计算Nu" HorizontalAlignment="Center" Click="CalNuDB">
+
+
+
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Width="200">
+                        <Button Content="使用 Gnielinski公式" Style="{StaticResource TextBlockButtonStyle}">
+                            <Button.Flyout>
+                                <Flyout>
+                                    <Image  Source="ms-appx:///img2/G公式.png"></Image>
+
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+
+
+                        <TextBox Width="100" x:Name="tb_dl" Text="0">
+
+
+                            <TextBox.Header>
+
+                                <TextBlock Text="d/l" TextDecorations="Underline" ToolTipService.ToolTip="默认d/l近似取0（直径小管道长）">
+       
+                                    
+                                </TextBlock>
+
+                            </TextBox.Header>
+                        </TextBox>
+                        <Button Content="计算Nu" Click="CalNuG" HorizontalAlignment="Center">
+
+
+
+                        </Button>
+
+                    </StackPanel>
+
+
+                </StackPanel>
+                <RadioButton x:Name="use_nu_fix" Content="使用修正" Margin="20 0 0 0"></RadioButton>
+                <TextBox Text="1" x:Name="tb_Ct">
+
+
+                    <TextBox.Header>
+
+
+                        <StackPanel Orientation="Horizontal">
+
+                            <TextBlock Text="Nu数修正因子 Ct" FontFamily="Cambria Math">
+
+
+                            </TextBlock>
+                            <TextBlock Margin="20 0" Foreground="{StaticResource SystemAccentColor}" Text="DB修正">
+                
+                                <ToolTipService.ToolTip>             
+                                    <Image  Source="ms-appx:///img2/DB修正.png"></Image>           
+                                </ToolTipService.ToolTip>
+
+                            </TextBlock>
+
+                            <TextBlock  Foreground="{StaticResource SystemAccentColor}" Text="G修正">
+                
+                                <ToolTipService.ToolTip>             
+                                    <Image  Source="ms-appx:///img2/G公式.png"></Image>           
+                                </ToolTipService.ToolTip>
+
+                            </TextBlock>
+                        </StackPanel>
+
+                    </TextBox.Header>
+
+                </TextBox>
+                <TextBox x:Name="tb_Nu" Header="Nu 努塞尔数 - 计算值">
+
+
+
+                </TextBox>
+
+                <TextBox x:Name="tb_lamd">
+
+
+
+                    <TextBox.Header>
+
+                        <Button Style="{StaticResource TextBlockButtonStyle}" FontFamily="Cambria Math" Content="Lamd 流体的导热系数 - 输入值" ToolTipService.ToolTip="求对流换热系数需要">
+
+
+                            <Button.Flyout>
+
+
+                                <Flyout>
+
+
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="IAPWS.IF97 仅限于水"></TextBlock>
+                                        <TextBox Header="参考压力" x:Name="tb_P3" Text="{x:Bind tb_P.Text,Mode=OneWay}"  PlaceholderText="Mpa" ></TextBox>
+                                        <TextBox Header="参考温度" x:Name="tb_T3" Text="{x:Bind tb_T.Text,Mode=OneWay}" PlaceholderText="℃" ></TextBox>
+
+
+                                        <Button Content="水的导热系数" Click="PT2Lamd"></Button>
+
+                                    </StackPanel>
+
+
+                                </Flyout>
+
+
+                            </Button.Flyout>
+
+
+                        </Button>
+
+
+                    </TextBox.Header>
+
+
+                </TextBox>
+                <TextBox x:Name="tb_h" >
+
+                    <TextBox.Header>
+
+                        <StackPanel>
+                            <Button  Content="计算对流换热系数" Click="Calh" ToolTipService.ToolTip="求对流换热系数需要">
+
+
+
+
+
+                            </Button>
+                            <TextBlock FontFamily="Cambria Math" Text="h 对流换热系数 -W/m^2"></TextBlock>
+                      
+                        </StackPanel>
+                  
+
+
+                    </TextBox.Header>
+
+
+                </TextBox>
+
+          
+
+
+            </StackPanel>
+
+
+        </StackPanel>
+
+
+    </ScrollViewer>
+</Page>
